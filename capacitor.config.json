@@ -1,0 +1,11 @@
+{
+  "appId": "com.communityalert.app",
+  "appName": "Community Alert",
+  "bundledWebRuntime": false,
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}
