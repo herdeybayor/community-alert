@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Community Alert</string>
+    <string name="title_activity_main">Community Alert</string>
+    <string name="package_name">com.communityalert.app</string>
+    <string name="custom_url_scheme">com.communityalert.app</string>
+</resources>
