@@ -15,16 +15,7 @@ import {
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [
-    IonRow,
-    IonGrid,
-    IonImg,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonButton,
-  ],
+  imports: [IonImg, IonButton],
 })
 export class HomePage {
   constructor() {}
