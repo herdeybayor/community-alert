@@ -1,0 +1,7 @@
+{
+  "name": "community-alert",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
