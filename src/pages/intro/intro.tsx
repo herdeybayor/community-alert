@@ -3,6 +3,7 @@ import "./intro.css";
 import { Link, NavLink } from "react-router-dom";
 
 function IntroPage() {
+    console.log(process.env.VITE_SOME_KEY);
     return (
         <div id="container">
             <div>
