@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1054687387762",
+    "project_id": "community-alert-d3fad",
+    "storage_bucket": "community-alert-d3fad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054687387762:android:a8d5f533a70cf46bbbe2eb",
+        "android_client_info": {
+          "package_name": "com.communityalert.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-p16dZx9m3Qnm7WDqFtCRjJfO_oI2M2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
