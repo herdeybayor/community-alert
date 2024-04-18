@@ -1,5 +1,6 @@
 import { IonButton, IonImg } from "@ionic/react";
 import "./intro.css";
+import { Link, NavLink } from "react-router-dom";
 
 function IntroPage() {
     return (
@@ -12,12 +13,17 @@ function IntroPage() {
             <IonImg src="assets/images/home-illustration.png" alt="Home Illustration"></IonImg>
 
             <div>
-                <IonButton expand="block" className="ion-margin-top">
-                    Get Started
-                </IonButton>
-                <IonButton expand="block" fill="clear" className="ion-margin-top">
-                    Login
-                </IonButton>
+                <Link to="/register">
+                    <IonButton expand="block" className="ion-margin-top">
+                        Get Started
+                    </IonButton>
+                </Link>
+
+                <NavLink to="/login">
+                    <IonButton expand="block" fill="clear" className="ion-margin-top">
+                        Login
+                    </IonButton>
+                </NavLink>
             </div>
         </div>
     );
