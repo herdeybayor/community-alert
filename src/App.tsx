@@ -51,7 +51,6 @@ const App: React.FC = () => {
             <IonReactRouter>
                 <IonTabs>
                     <IonRouterOutlet>
-                        {/* use authenticate for intro*/}
                         <Route exact path="/intro">
                             {isAuthenticated ? <Redirect to="/feed" /> : <IntroPage />}
                         </Route>
