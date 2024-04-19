@@ -1,6 +1,7 @@
-import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonLoading, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { IonApp, IonIcon, IonLabel, IonLoading, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact } from "@ionic/react";
+import { newspaper, person } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";
+import { Redirect, Route } from "react-router-dom";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -11,12 +12,12 @@ import "@ionic/react/css/structure.css";
 import "@ionic/react/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-import "@ionic/react/css/padding.css";
+import "@ionic/react/css/display.css";
+import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/padding.css";
 import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
-import "@ionic/react/css/flex-utils.css";
-import "@ionic/react/css/display.css";
 
 /**
  * Ionic Dark Mode
@@ -30,26 +31,15 @@ import "@ionic/react/css/display.css";
 import "@ionic/react/css/palettes/dark.system.css";
 
 /* Theme variables */
-import "./theme/variables.css";
+import { useAuthState } from "./context/AuthContext";
+import FeedPage from "./pages/feed/feed";
 import IntroPage from "./pages/intro/intro";
 import LoginPage from "./pages/login/login";
 import RegisterPage from "./pages/register/register";
-import HomePage from "./pages/home/home";
-import { useAuthState } from "./context/AuthContext";
+import "./theme/variables.css";
+import AccountPage from "./pages/account/account";
 
 setupIonicReact();
-
-// const AuthenticatedRoute = ({ component: C, ...props }) => {
-//     const { isAuthenticated } = useAuthState();
-//     console.log(`AuthenticatedRoute: ${isAuthenticated}`);
-//     return <Route {...props} render={(routeProps) => (isAuthenticated ? <C {...routeProps} /> : <Redirect to="/login" />)} />;
-// };
-
-// const UnauthenticatedRoute = ({ component: C, ...props }) => {
-//     const { isAuthenticated } = useAuthState();
-//     console.log(`UnauthenticatedRoute: ${isAuthenticated}`);
-//     return <Route {...props} render={(routeProps) => (!isAuthenticated ? <C {...routeProps} /> : <Redirect to="/" />)} />;
-// };
 
 const App: React.FC = () => {
     const { isAuthenticated, isLoading } = useAuthState();
@@ -59,24 +49,41 @@ const App: React.FC = () => {
     return (
         <IonApp>
             <IonReactRouter>
-                <IonRouterOutlet>
-                    {/* use authenticate for intro*/}
-                    <Route exact path="/intro">
-                        {isAuthenticated ? <Redirect to="/home" /> : <IntroPage />}
-                    </Route>
-                    <Route exact path="/login">
-                        {isAuthenticated ? <Redirect to="/home" /> : <LoginPage />}
-                    </Route>
-                    <Route exact path="/register">
-                        {isAuthenticated ? <Redirect to="/home" /> : <RegisterPage />}
-                    </Route>
-                    <Route exact path="/home">
-                        {isAuthenticated ? <HomePage /> : <Redirect to="/intro" />}
-                    </Route>
-                    <Route exact path="/">
-                        {isAuthenticated ? <Redirect to="/home" /> : <Redirect to="/intro" />}
-                    </Route>
-                </IonRouterOutlet>
+                <IonTabs>
+                    <IonRouterOutlet>
+                        {/* use authenticate for intro*/}
+                        <Route exact path="/intro">
+                            {isAuthenticated ? <Redirect to="/feed" /> : <IntroPage />}
+                        </Route>
+                        <Route exact path="/login">
+                            {isAuthenticated ? <Redirect to="/feed" /> : <LoginPage />}
+                        </Route>
+                        <Route exact path="/register">
+                            {isAuthenticated ? <Redirect to="/feed" /> : <RegisterPage />}
+                        </Route>
+                        <Route exact path="/feed">
+                            {isAuthenticated ? <FeedPage /> : <Redirect to="/intro" />}
+                        </Route>
+                        <Route exact path="/account">
+                            {isAuthenticated ? <AccountPage /> : <Redirect to="/intro" />}
+                        </Route>
+                        <Route exact path="/">
+                            {isAuthenticated ? <Redirect to="/feed" /> : <Redirect to="/intro" />}
+                        </Route>
+                    </IonRouterOutlet>
+
+                    <IonTabBar slot="bottom" className={`${!isAuthenticated && "ion-hide"}`}>
+                        <IonTabButton tab="feed" href="/feed">
+                            <IonIcon icon={newspaper} />
+                            <IonLabel>Feed</IonLabel>
+                        </IonTabButton>
+
+                        <IonTabButton tab="account" href="/account">
+                            <IonIcon icon={person} />
+                            <IonLabel>Account</IonLabel>
+                        </IonTabButton>
+                    </IonTabBar>
+                </IonTabs>
             </IonReactRouter>
         </IonApp>
     );
