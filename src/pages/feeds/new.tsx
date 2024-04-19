@@ -115,79 +115,71 @@ function NewFeedPage() {
                         }
                     }}
                 >
-                    {({ setFieldValue, handleBlur, handleSubmit, values, errors }) => {
-                        console.log({ values, errors });
-                        return (
-                            <form onSubmit={handleSubmit}>
-                                <IonItem>
-                                    <IonLabel position="floating">Title</IonLabel>
-                                    <IonInput name="title" type="text" onIonChange={(e) => setFieldValue("title", e.detail.value)} onIonBlur={handleBlur("title")} value={values.title} />
-                                </IonItem>
+                    {({ setFieldValue, handleBlur, handleSubmit, values, errors }) => (
+                        <form onSubmit={handleSubmit}>
+                            <IonItem>
+                                <IonLabel position="floating">Title</IonLabel>
+                                <IonInput name="title" type="text" onIonChange={(e) => setFieldValue("title", e.detail.value)} onIonBlur={handleBlur("title")} value={values.title} />
+                            </IonItem>
 
-                                <IonItem>
-                                    <IonLabel position="floating">Description</IonLabel>
-                                    <IonTextarea
-                                        name="description"
-                                        onIonChange={(e) => setFieldValue("description", e.detail.value)}
-                                        onIonBlur={handleBlur("description")}
-                                        value={values.description}
-                                    />
-                                </IonItem>
+                            <IonItem>
+                                <IonLabel position="floating">Description</IonLabel>
+                                <IonTextarea name="description" onIonChange={(e) => setFieldValue("description", e.detail.value)} onIonBlur={handleBlur("description")} value={values.description} />
+                            </IonItem>
 
-                                <IonItem>
-                                    <IonLabel position="floating">Category</IonLabel>
-                                    <IonSelect name="category" interface="popover" onIonChange={(e) => setFieldValue("category", e.detail.value)} value={values.category}>
-                                        <IonSelectOption value="incident">Incident</IonSelectOption>
-                                        <IonSelectOption value="accident">Accident</IonSelectOption>
-                                        <IonSelectOption value="event">Event</IonSelectOption>
-                                        <IonSelectOption value="other">Other</IonSelectOption>
-                                    </IonSelect>
-                                </IonItem>
+                            <IonItem>
+                                <IonLabel position="floating">Category</IonLabel>
+                                <IonSelect name="category" interface="popover" onIonChange={(e) => setFieldValue("category", e.detail.value)} value={values.category}>
+                                    <IonSelectOption value="incident">Incident</IonSelectOption>
+                                    <IonSelectOption value="accident">Accident</IonSelectOption>
+                                    <IonSelectOption value="event">Event</IonSelectOption>
+                                    <IonSelectOption value="other">Other</IonSelectOption>
+                                </IonSelect>
+                            </IonItem>
 
-                                <IonItem>
-                                    <IonLabel position="floating">Longitude</IonLabel>
-                                    <IonInput name="location.longitude" type="number" readonly value={values.location?.longitude} />
-                                </IonItem>
+                            <IonItem>
+                                <IonLabel position="floating">Longitude</IonLabel>
+                                <IonInput name="location.longitude" type="number" readonly value={values.location?.longitude} />
+                            </IonItem>
 
-                                <IonItem>
-                                    <IonLabel position="floating">Latitude</IonLabel>
-                                    <IonInput name="location.latitude" type="number" readonly value={values.location?.latitude} />
-                                </IonItem>
+                            <IonItem>
+                                <IonLabel position="floating">Latitude</IonLabel>
+                                <IonInput name="location.latitude" type="number" readonly value={values.location?.latitude} />
+                            </IonItem>
 
-                                <IonButton onClick={useCurrentLocation}>Use Current Location</IonButton>
+                            <IonButton onClick={useCurrentLocation}>Use Current Location</IonButton>
 
-                                <IonButton
-                                    onClick={async () => {
-                                        try {
-                                            const photo = await Camera.getPhoto({
-                                                resultType: CameraResultType.DataUrl,
-                                            });
-                                            if (photo.dataUrl) {
-                                                setIsUploading(true);
-                                                const storageRef = ref(storage, `images/${photo.path}`);
-                                                await uploadString(storageRef, photo.dataUrl, "data_url");
-                                                const url = await getDownloadURL(storageRef);
-                                                setImage(url);
-                                                setFieldValue("image_url", url);
-                                            }
-                                        } catch (error) {
-                                            console.error("Error taking photo:", error);
-                                        } finally {
-                                            setIsUploading(false);
+                            <IonButton
+                                onClick={async () => {
+                                    try {
+                                        const photo = await Camera.getPhoto({
+                                            resultType: CameraResultType.DataUrl,
+                                        });
+                                        if (photo.dataUrl) {
+                                            setIsUploading(true);
+                                            const storageRef = ref(storage, `images/${photo.path}`);
+                                            await uploadString(storageRef, photo.dataUrl, "data_url");
+                                            const url = await getDownloadURL(storageRef);
+                                            setImage(url);
+                                            setFieldValue("image_url", url);
                                         }
-                                    }}
-                                >
-                                    Take Photo
-                                </IonButton>
+                                    } catch (error) {
+                                        console.error("Error taking photo:", error);
+                                    } finally {
+                                        setIsUploading(false);
+                                    }
+                                }}
+                            >
+                                Take Photo
+                            </IonButton>
 
-                                {image && <IonImg src={image} />}
+                            {image && <IonImg src={image} />}
 
-                                <IonButton expand="block" type="submit" className="ion-margin-top">
-                                    Submit Report
-                                </IonButton>
-                            </form>
-                        );
-                    }}
+                            <IonButton expand="block" type="submit" className="ion-margin-top">
+                                Submit Report
+                            </IonButton>
+                        </form>
+                    )}
                 </Formik>
                 <IonToast
                     isOpen={showToast}

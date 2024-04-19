@@ -11,36 +11,6 @@ function FeedsPage() {
     const [feeds, setFeeds] = React.useState<IFeed[]>([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
-    // React.useEffect(() => {
-    //     async function fetchFeeds() {
-    //         try {
-    //             setIsLoading(true);
-    //             const feedsCollection = collection(db, "reports");
-    //             const feedsSnapshot = await getDocs(feedsCollection);
-    //             const feedsData = feedsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    //             const feeds: IFeed[] = feedsData.map((feed: any) => {
-    //                 return {
-    //                     id: feed.id,
-    //                     title: feed.title,
-    //                     description: feed.description,
-    //                     category: feed.category,
-    //                     location: feed.location,
-    //                     image_url: feed.image_url,
-    //                     user_ref: feed.user_ref,
-    //                     created_at: feed.created_at,
-    //                     updated_at: feed.updated_at,
-    //                 };
-    //             });
-    //             setFeeds(feeds);
-    //         } catch (error: any) {
-    //             console.error(error);
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     }
-    //     fetchFeeds();
-    // }, []);
-
     React.useEffect(() => {
         const feedsCollection = collection(db, "reports");
         const unsubscribe = onSnapshot(feedsCollection, (snapshot) => {
