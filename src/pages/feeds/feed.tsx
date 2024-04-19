@@ -1,6 +1,9 @@
+import { Geolocation } from "@capacitor/geolocation";
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import * as Leaflet from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { db } from "../../config/firebase";
 
@@ -27,8 +30,29 @@ function FeedPage() {
             }
         };
 
+        const initializeMap = async () => {
+            const hasPermission = await Geolocation.checkPermissions();
+            if (!hasPermission.location) {
+                await Geolocation.requestPermissions();
+            }
+        };
+
         fetchFeed();
+        initializeMap();
     }, [id]);
+
+    // Initialize the map after feed data is loaded
+    useEffect(() => {
+        if (isLoading || !feed || !feed.location) return;
+
+        const map = Leaflet.map("map").setView([feed.location.latitude, feed.location.longitude], 13);
+
+        Leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        Leaflet.marker([feed.location.latitude, feed.location.longitude]).addTo(map);
+    }, [isLoading, feed]);
 
     return (
         <IonPage>
@@ -48,6 +72,18 @@ function FeedPage() {
                         <h2>{feed.title}</h2>
                         <p>{feed.description}</p>
                         {feed.image_url && <img src={feed.image_url} alt={feed.title} />}
+                        {feed.location && (
+                            <div>
+                                <h3>Location:</h3>
+                                <div id="map" style={{ height: "200px" }}></div>
+                            </div>
+                        )}
+                        {feed.category && (
+                            <div>
+                                <h3>Category:</h3>
+                                <p>{feed.category}</p>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <p>Feed not found.</p>
