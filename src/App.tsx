@@ -38,6 +38,8 @@ import LoginPage from "./pages/login/login";
 import RegisterPage from "./pages/register/register";
 import "./theme/variables.css";
 import AccountPage from "./pages/account/account";
+import FeedPage from "./pages/feeds/feed";
+import NewFeedPage from "./pages/feeds/new";
 
 setupIonicReact();
 
@@ -62,6 +64,12 @@ const App: React.FC = () => {
                         </Route>
                         <Route exact path="/feeds">
                             {isAuthenticated ? <FeedsPage /> : <Redirect to="/intro" />}
+                        </Route>
+                        <Route exact path="/feeds/:id">
+                            {isAuthenticated ? <FeedPage /> : <Redirect to="/intro" />}
+                        </Route>
+                        <Route exact path="/new-feed">
+                            {isAuthenticated ? <NewFeedPage /> : <Redirect to="/intro" />}
                         </Route>
                         <Route exact path="/account">
                             {isAuthenticated ? <AccountPage /> : <Redirect to="/intro" />}
