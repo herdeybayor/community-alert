@@ -32,7 +32,7 @@ import "@ionic/react/css/palettes/dark.system.css";
 
 /* Theme variables */
 import { useAuthState } from "./context/AuthContext";
-import FeedPage from "./pages/feeds/feed";
+import FeedsPage from "./pages/feeds/feeds";
 import IntroPage from "./pages/intro/intro";
 import LoginPage from "./pages/login/login";
 import RegisterPage from "./pages/register/register";
@@ -61,7 +61,7 @@ const App: React.FC = () => {
                             {isAuthenticated ? <Redirect to="/feeds" /> : <RegisterPage />}
                         </Route>
                         <Route exact path="/feeds">
-                            {isAuthenticated ? <FeedPage /> : <Redirect to="/intro" />}
+                            {isAuthenticated ? <FeedsPage /> : <Redirect to="/intro" />}
                         </Route>
                         <Route exact path="/account">
                             {isAuthenticated ? <AccountPage /> : <Redirect to="/intro" />}

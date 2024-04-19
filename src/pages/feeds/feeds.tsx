@@ -20,7 +20,7 @@ interface IFeed {
     updated_at: Date;
 }
 
-function FeedPage() {
+function FeedsPage() {
     const { user } = useAuthState();
     const [feeds, setFeeds] = React.useState<IFeed[]>([]);
 
@@ -95,4 +95,4 @@ function FeedPage() {
     );
 }
 
-export default FeedPage;
+export default FeedsPage;
