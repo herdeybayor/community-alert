@@ -1,5 +1,5 @@
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { IonApp, IonLoading, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
 /* Core CSS required for Ionic components to work properly */
@@ -34,28 +34,52 @@ import "./theme/variables.css";
 import IntroPage from "./pages/intro/intro";
 import LoginPage from "./pages/login/login";
 import RegisterPage from "./pages/register/register";
+import HomePage from "./pages/home/home";
+import { useAuthState } from "./context/AuthContext";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-    <IonApp>
-        <IonReactRouter>
-            <IonRouterOutlet>
-                <Route exact path="/intro">
-                    <IntroPage />
-                </Route>
-                <Route exact path="/login">
-                    <LoginPage />
-                </Route>
-                <Route exact path="/register">
-                    <RegisterPage />
-                </Route>
-                <Route exact path="/">
-                    <Redirect to="/intro" />
-                </Route>
-            </IonRouterOutlet>
-        </IonReactRouter>
-    </IonApp>
-);
+// const AuthenticatedRoute = ({ component: C, ...props }) => {
+//     const { isAuthenticated } = useAuthState();
+//     console.log(`AuthenticatedRoute: ${isAuthenticated}`);
+//     return <Route {...props} render={(routeProps) => (isAuthenticated ? <C {...routeProps} /> : <Redirect to="/login" />)} />;
+// };
+
+// const UnauthenticatedRoute = ({ component: C, ...props }) => {
+//     const { isAuthenticated } = useAuthState();
+//     console.log(`UnauthenticatedRoute: ${isAuthenticated}`);
+//     return <Route {...props} render={(routeProps) => (!isAuthenticated ? <C {...routeProps} /> : <Redirect to="/" />)} />;
+// };
+
+const App: React.FC = () => {
+    const { isAuthenticated, isLoading } = useAuthState();
+    if (isLoading) {
+        return <IonLoading isOpen={true} />;
+    }
+    return (
+        <IonApp>
+            <IonReactRouter>
+                <IonRouterOutlet>
+                    {/* use authenticate for intro*/}
+                    <Route exact path="/intro">
+                        {isAuthenticated ? <Redirect to="/home" /> : <IntroPage />}
+                    </Route>
+                    <Route exact path="/login">
+                        {isAuthenticated ? <Redirect to="/home" /> : <LoginPage />}
+                    </Route>
+                    <Route exact path="/register">
+                        {isAuthenticated ? <Redirect to="/home" /> : <RegisterPage />}
+                    </Route>
+                    <Route exact path="/home">
+                        {isAuthenticated ? <HomePage /> : <Redirect to="/intro" />}
+                    </Route>
+                    <Route exact path="/">
+                        {isAuthenticated ? <Redirect to="/home" /> : <Redirect to="/intro" />}
+                    </Route>
+                </IonRouterOutlet>
+            </IonReactRouter>
+        </IonApp>
+    );
+};
 
 export default App;

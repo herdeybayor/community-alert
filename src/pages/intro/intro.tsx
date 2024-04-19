@@ -3,7 +3,6 @@ import "./intro.css";
 import { Link, NavLink } from "react-router-dom";
 
 function IntroPage() {
-    console.log(process.env.VITE_SOME_KEY);
     return (
         <div id="container">
             <div>
@@ -11,7 +10,7 @@ function IntroPage() {
                 <p>Report incident going on around you at a go</p>
             </div>
 
-            <IonImg src="assets/images/home-illustration.png" alt="Home Illustration"></IonImg>
+            <IonImg src="assets/images/home-illustration.png" alt="Home Illustration" className="home-img"></IonImg>
 
             <div>
                 <Link to="/register">
