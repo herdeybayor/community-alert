@@ -32,7 +32,7 @@ import "@ionic/react/css/palettes/dark.system.css";
 
 /* Theme variables */
 import { useAuthState } from "./context/AuthContext";
-import FeedPage from "./pages/feed/feed";
+import FeedPage from "./pages/feeds/feed";
 import IntroPage from "./pages/intro/intro";
 import LoginPage from "./pages/login/login";
 import RegisterPage from "./pages/register/register";
@@ -52,29 +52,29 @@ const App: React.FC = () => {
                 <IonTabs>
                     <IonRouterOutlet>
                         <Route exact path="/intro">
-                            {isAuthenticated ? <Redirect to="/feed" /> : <IntroPage />}
+                            {isAuthenticated ? <Redirect to="/feeds" /> : <IntroPage />}
                         </Route>
                         <Route exact path="/login">
-                            {isAuthenticated ? <Redirect to="/feed" /> : <LoginPage />}
+                            {isAuthenticated ? <Redirect to="/feeds" /> : <LoginPage />}
                         </Route>
                         <Route exact path="/register">
-                            {isAuthenticated ? <Redirect to="/feed" /> : <RegisterPage />}
+                            {isAuthenticated ? <Redirect to="/feeds" /> : <RegisterPage />}
                         </Route>
-                        <Route exact path="/feed">
+                        <Route exact path="/feeds">
                             {isAuthenticated ? <FeedPage /> : <Redirect to="/intro" />}
                         </Route>
                         <Route exact path="/account">
                             {isAuthenticated ? <AccountPage /> : <Redirect to="/intro" />}
                         </Route>
                         <Route exact path="/">
-                            {isAuthenticated ? <Redirect to="/feed" /> : <Redirect to="/intro" />}
+                            {isAuthenticated ? <Redirect to="/feeds" /> : <Redirect to="/intro" />}
                         </Route>
                     </IonRouterOutlet>
 
                     <IonTabBar slot="bottom" className={`${!isAuthenticated && "ion-hide"}`}>
-                        <IonTabButton tab="feed" href="/feed">
+                        <IonTabButton tab="feed" href="/feeds">
                             <IonIcon icon={newspaper} />
-                            <IonLabel>Feed</IonLabel>
+                            <IonLabel>Feeds</IonLabel>
                         </IonTabButton>
 
                         <IonTabButton tab="account" href="/account">

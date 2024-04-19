@@ -1,9 +1,10 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonTitle, IonToast, IonToolbar } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonText, IonTitle, IonToast, IonToolbar } from "@ionic/react";
 import { Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
     const [showToast, setShowToast] = useState(false);
@@ -76,6 +77,14 @@ function LoginPage() {
                             <IonButton expand="block" type="submit" className="ion-margin-top">
                                 Login
                             </IonButton>
+
+                            <IonItem lines="none" className="ion-text-center">
+                                <IonLabel>
+                                    <IonText>
+                                        Don't have an account? <Link to="/register">Register</Link>
+                                    </IonText>
+                                </IonLabel>
+                            </IonItem>
                         </form>
                     )}
                 </Formik>

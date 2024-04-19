@@ -13,17 +13,13 @@ function IntroPage() {
             <IonImg src="assets/images/home-illustration.png" alt="Home Illustration" className="home-img"></IonImg>
 
             <div>
-                <Link to="/register">
-                    <IonButton expand="block" className="ion-margin-top">
-                        Get Started
-                    </IonButton>
-                </Link>
+                <IonButton expand="block" className="ion-margin-top" routerLink="/register">
+                    Get Started
+                </IonButton>
 
-                <NavLink to="/login">
-                    <IonButton expand="block" fill="clear" className="ion-margin-top">
-                        Login
-                    </IonButton>
-                </NavLink>
+                <IonButton expand="block" fill="clear" className="ion-margin-top" routerLink="/login">
+                    Login
+                </IonButton>
             </div>
         </div>
     );
